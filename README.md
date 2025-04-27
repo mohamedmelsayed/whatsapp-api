@@ -109,9 +109,9 @@ python app.py
 ---
 
 **للتواصل مع فريق رواسي الاتقان**:  
-📱 +968 9815 7645  
+📱 +96898157645  
 📧 info@rawasy-alitqan.com  
-🌐 [www.rawasy-alitqan.com](https://rawasy-al-itqan.prof-dev.com)  
+🌐 [https://rawasy-al-itqan.prof-dev.com](https://rawasy-al-itqan.prof-dev.com)  
 
 
 ![Rawasy Alitqan Logo](https://rawasy-al-itqan.prof-dev.com/logo.png)  
