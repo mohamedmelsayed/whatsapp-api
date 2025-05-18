@@ -226,7 +226,7 @@ def send_promotion(video_id, customer_phone, promo_text, button_text, button_url
     }
     
     # Send video first
-    # video_response = requests.post(url, headers=headers, json=video_message)
+    video_response = requests.post(url, headers=headers, json=video_message)
     
     # Then send the interactive button message
     button_message = {
@@ -278,7 +278,7 @@ if __name__ == '__main__':
 # curl -X POST http://localhost:5000/send-promotion-url \
 # -H "Content-Type: application/json" \
 # -d '{
-#     "customer_phone": "96898157645",
+#     "customer_phone": "249122302757",
 #     "video_url": "https://www.youtube.com/watch?v=HdEzeiSR5eU",
 #     "promo_text": "Check out our latest promotion!",
 #     "button_text": "Shop Now",
