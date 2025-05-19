@@ -62,8 +62,26 @@ def handle_message(_: WhatsApp, msg: types.Message):
     if text in ["menu", "القائمة", "ابدأ", "start"]:
         send_main_menu(user_id)
         return
+    # Handle service selection by number after dev_services
+    if text.isdigit():
+        if text == "1":
+            msg.reply("خدمة تكامل واتساب: حلول ربط الأنظمة مع واتساب بزنس، إشعارات تلقائية، بوتات دردشة والمزيد. للمزيد تواصل معنا.")
+            return
+        elif text == "2":
+            msg.reply("قائمة QR للمطاعم: تصميم قوائم رقمية تفاعلية لعرضها عبر رمز QR لعملائك. اطلب عرضك الآن.")
+            return
+        elif text == "3":
+            msg.reply("خدمات الأتمتة والجدولة: أتمتة العمليات وجدولة المهام لتوفير الوقت وزيادة الإنتاجية. تواصل لمناقشة احتياجاتك.")
+            return
+        elif text == "4":
+            msg.reply("تطبيقات مخصصة: تطوير تطبيقات وبرمجيات حسب متطلباتك الخاصة. أرسل لنا فكرتك لنبدأ التنفيذ.")
+            return
+        elif text == "0":
+            send_main_menu(user_id)
+            msg.reply("تمت إعادتك للقائمة الرئيسية.")
+            return
     send_main_menu(user_id)
-    msg.reply("يرجى استخدام القائمة أدناه لاختيار الخدمة المطلوبة.")
+    msg.reply("يرجى استخدام القائمة أدناه لاختيار الخدمة المطلوبة أو كتابة رقم الخدمة.")
 
 @wa.on_message(filters.command("start"))
 def start(client: WhatsApp, msg: types.Message):
@@ -86,12 +104,25 @@ def start(client: WhatsApp, msg: types.Message):
 
 @wa.on_callback_button(factory=UserData)
 def on_user_data(_: WhatsApp, btn: CallbackButton[UserData]):
-    # Example: handle button click using btn.data
     if btn.data.name == "dev_services":
-        btn.reply("نقدم خدمات تطوير مواقع وتطبيقات احترافية. لمزيد من التفاصيل أو طلب عرض سعر، أرسل لنا تفاصيل مشروعك.")
+        # List all services as a numbered list (user replies with a number)
+        btn.reply(
+            text="خدماتنا البرمجية:\n1. تكامل واتساب\n2. قائمة QR للمطاعم\n3. الأتمتة وخدمات الجدولة\n4. تطبيقات مخصصة\n\nيرجى كتابة رقم الخدمة المطلوبة أو أرسل 0 للعودة للقائمة الرئيسية."
+        )
+    elif btn.data.name == "wa_integration":
+        btn.reply("خدمة تكامل واتساب: حلول ربط الأنظمة مع واتساب بزنس، إشعارات تلقائية، بوتات دردشة والمزيد. للمزيد تواصل معنا.")
+    elif btn.data.name == "qr_menu":
+        btn.reply("قائمة QR للمطاعم: تصميم قوائم رقمية تفاعلية لعرضها عبر رمز QR لعملائك. اطلب عرضك الآن.")
+    elif btn.data.name == "automation":
+        btn.reply("خدمات الأتمتة والجدولة: أتمتة العمليات وجدولة المهام لتوفير الوقت وزيادة الإنتاجية. تواصل لمناقشة احتياجاتك.")
+    elif btn.data.name == "custom_apps":
+        btn.reply("تطبيقات مخصصة: تطوير تطبيقات وبرمجيات حسب متطلباتك الخاصة. أرسل لنا فكرتك لنبدأ التنفيذ.")
+    elif btn.data.name == "main_menu":
+        send_main_menu(btn.from_user.wa_id)
+        btn.reply("تمت إعادتك للقائمة الرئيسية.")
     elif btn.data.name == "smart_solutions":
         btn.reply("نقدم حلول الأعمال الذكية مثل الأنظمة المؤسسية والتكامل مع واتساب. تواصل معنا لمناقشة احتياجاتك.")
-    elif btn.name == "consulting":
+    elif btn.data.name == "consulting":
         btn.reply("فريقنا يقدم استشارات تقنية متخصصة في التحول الرقمي وأتمتة الأعمال. احجز استشارتك الآن.")
     else:
         send_main_menu(btn.from_user.wa_id)
