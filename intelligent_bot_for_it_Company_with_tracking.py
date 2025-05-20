@@ -149,41 +149,41 @@ def on_user_data(_: WhatsApp, btn: CallbackButton[UserData]):
     )
     if btn.data.name == "dev_services":
         text = "خدماتنا البرمجية:\n1. تكامل واتساب\n2. قائمة QR للمطاعم\n3. الأتمتة وخدمات الجدولة\n4. تطبيقات مخصصة\n\nيرجى كتابة رقم الخدمة المطلوبة أو أرسل 0 للعودة للقائمة الرئيسية."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "wa_integration":
         text = "خدمة تكامل واتساب: حلول ربط الأنظمة مع واتساب بزنس، إشعارات تلقائية، بوتات دردشة والمزيد. للمزيد تواصل معنا."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "qr_menu":
         text = "قائمة QR للمطاعم: تصميم قوائم رقمية تفاعلية لعرضها عبر رمز QR لعملائك. اطلب عرضك الآن."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "automation":
         text = "خدمات الأتمتة والجدولة: أتمتة العمليات وجدولة المهام لتوفير الوقت وزيادة الإنتاجية. تواصل لمناقشة احتياجاتك."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "custom_apps":
         text = "تطبيقات مخصصة: تطوير تطبيقات وبرمجيات حسب متطلباتك الخاصة. أرسل لنا فكرتك لنبدأ التنفيذ."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "main_menu":
         send_main_menu(btn.from_user.wa_id)
         text = "تمت إعادتك للقائمة الرئيسية."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "smart_solutions":
         text = "نقدم حلول الأعمال الذكية مثل الأنظمة المؤسسية والتكامل مع واتساب. تواصل معنا لمناقشة احتياجاتك."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     elif btn.data.name == "consulting":
         text = "فريقنا يقدم استشارات تقنية متخصصة في التحول الرقمي وأتمتة الأعمال. احجز استشارتك الآن."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
     else:
         send_main_menu(btn.from_user.wa_id)
         text = "يرجى اختيار خيار من القائمة."
-        btn.message.reply(text)
+        btn.reply(text)
         log_customer_interaction(btn.from_user.wa_id, "outbound", text)
 
 @flask_app.route('/')
