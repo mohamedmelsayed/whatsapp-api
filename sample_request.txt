@@ -1,0 +1,8 @@
+curl -X POST http://localhost:5000/send_template_message \
+-H "Content-Type: application/json" \
+-d '{
+  "to": "96898157645",
+  "template_name": "wa_integration_promo",
+  "language": "en_US",
+  "parameters": ["Mohamed"]
+}'

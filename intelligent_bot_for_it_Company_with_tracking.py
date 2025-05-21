@@ -59,6 +59,7 @@ TRACKING_API_URL = "http://localhost:5050/track-customer"
 def log_customer_interaction(phone, message_type, content, name=None, email=None):
     payload = {
         "phone": phone,
+        "nname": name,
         "message_type": message_type,
         "content": content
     }
@@ -81,7 +82,7 @@ def handle_message(_: WhatsApp, msg: types.Message):
         phone=user_id,
         message_type="inbound",
         content=msg.text,
-        name=msg.from_user.name if hasattr(msg.from_user, 'name') else None
+        name=msg.from_user.name if hasattr(msg.from_user, 'name') else None,
     )
     if text in ["menu", "القائمة", "ابدأ", "start"]:
         send_main_menu(user_id)
