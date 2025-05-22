@@ -11,29 +11,25 @@ WHATSAPP_ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
 WHATSAPP_PHONE_NUMBER_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")
 
 # --- 1. رفع الملف إلى ميتا ---
-def upload_document(file_path):
+def upload_document(file):
     url = f"https://graph.facebook.com/v18.0/{WHATSAPP_PHONE_NUMBER_ID}/media"
-    
+
     headers = {
         "Authorization": f"Bearer {WHATSAPP_ACCESS_TOKEN}"
     }
-    
+
     payload = {
         "messaging_product": "whatsapp",
         "type": "document"
     }
-    
-    # تأكد أن الملف موجود وصيغته PDF
-    if not os.path.exists(file_path):
-        raise Exception("الملف غير موجود!")
-    
-    with open(file_path, "rb") as file:
-        files = {"file": (os.path.basename(file_path), file, "application/pdf")}
-        response = requests.post(url, headers=headers, data=payload, files=files)
-    
+
+    files = {"file": (file.filename, file.stream, file.content_type)}
+
+    response = requests.post(url, headers=headers, data=payload, files=files)
+
     if response.status_code != 200:
         raise Exception(f"فشل رفع الملف: {response.text}")
-    
+
     return response.json().get("id")  # Media ID
 
 # --- 2. إرسال الرسالة مع Media ID والمتغيرات ---
@@ -65,29 +61,32 @@ def send_document(media_id, customer_phone, name, invoice_number, amount, curren
 @app.route('/send-invoice', methods=['POST'])
 def handle_invoice():
     try:
-        data = request.get_json()
-        
+        customer_phone = request.form.get('customer_phone')
+        name = request.form.get('name')
+        invoice_number = request.form.get('invoice_number')
+        amount = request.form.get('amount')
+        currency = request.form.get('currency')
+        file = request.files.get('file')
+
         # التحقق من البيانات المطلوبة
-        required_fields = ['customer_phone', 'name', 'invoice_number', 'amount', 'currency', 'file_path']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({"error": f"المتغير {field} مطلوب!"}), 400
-        
+        if not all([customer_phone, name, invoice_number, amount, currency, file]):
+            return jsonify({"error": "جميع الحقول مطلوبة بما في ذلك الملف."}), 400
+
         # رفع الملف
-        media_id = upload_document(data['file_path'])
-        
+        media_id = upload_document(file)
+
         # إرسال الرسالة
         result = send_document(
             media_id=media_id,
-            customer_phone=data['customer_phone'],
-            name=data['name'],
-            invoice_number=data['invoice_number'],
-            amount=data['amount'],
-            currency=data['currency']
+            customer_phone=customer_phone,
+            name=name,
+            invoice_number=invoice_number,
+            amount=amount,
+            currency=currency
         )
-        
-        return jsonify({"message": "تم الإرسال!", "media_id": media_id, "response": result}), 200
-    
+
+        return jsonify({"message": "تم إرسال الفاتورة بنجاح!", "media_id": media_id, "response": result}), 200
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
@@ -259,14 +258,22 @@ def send_promotion(video_id, customer_phone, promo_text, button_text, button_url
     }
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8888)
 
 
+# curl -X POST http://89.250.65.247:8888/send-invoice \
+# -H "Content-Type: multipart/form-data" \
+# -F "customer_phone=96898157645" \
+# -F "name=أحمد محمد" \
+# -F "invoice_number=INV-2023-456" \
+# -F "amount=750" \
+# -F "currency=SAR" \
+# -F "file=@/home/mr-mohamed/Downloads/pdf/aktshf-mtah-altalm.pdf"
 
-#     curl -X POST http://localhost:5000/send-invoice \
+#     curl -X POST http://89.250.65.247:8888/send-invoice \
 # -H "Content-Type: application/json" \
 # -d '{
-#      "customer_phone": "249122302757",
+#      "customer_phone": "96898157645",
 #      "name": "أحمد محمد",
 #      "invoice_number": "INV-2023-456",
 #      "amount": "750",

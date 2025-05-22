@@ -6,3 +6,50 @@ curl -X POST http://localhost:5000/send_template_message \
   "language": "en_US",
   "parameters": ["Mohamed"]
 }'
+
+
+curl -X POST http://localhost:5000/create_template \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "invoice_file_send2",
+  "language": "ARABIC",
+  "header": "فاتورة مبيعات ",
+  "body": "عزيزنا العميل {{1}}\n\nهذا الملف مرسل لكم من :{{2}}\nفاتورة مبيعات {{3}}\n\nلتحميل الملف قم بزيارة الرابط التالي ⬇️\n{{4}}\n\nلمعرفة المزيد حول رسائل واتساب ومعرفة خداماتنا زورزا https://www.rawasyalitqan.com\n\nشاكرين ومقدرين لتعاملكم معنا 🤗",
+  "footer": "Rawasy Al-itqan",
+  "buttons": [
+    {
+      "type": "url",
+      "title": "زيارة موقعنا",
+      "url": "https://www.rawasyalitqan.com"
+    }
+  ]
+}'
+
+
+curl -X POST http://89.250.65.247:8888/send_template_message \
+-H "Content-Type: application/json" \
+-d '{
+  "to": "966504677306",
+  "template_name": "invoice_file_send2",
+  "language": "ar",
+  "parameters": [
+    "محمد",
+    "شركة المجد المشرق للتجارة",
+    "1010320",
+    "https://NewPoent.com/vo4lan3ccb.pdf"
+  ]
+}'
+
+curl -X POST http://89.250.65.247:8888/send_template_message \
+-H "Content-Type: application/json" \
+-d '{
+  "to": "966504677306",
+  "template_name": "invoice_file_send2",
+  "language": "ar",
+  "parameters": [
+    "محمد",
+    "شركة المجد المشرق للتجارة",
+    "1010320",
+    "https://NewPoent.com/vo4lan3ccb.pdf"
+  ]
+}'
