@@ -53,3 +53,21 @@ curl -X POST http://89.250.65.247:8888/send_template_message \
     "https://NewPoent.com/vo4lan3ccb.pdf"
   ]
 }'
+
+curl -X POST http://89.250.65.247:8888/send-invoice \
+# -H "Content-Type: multipart/form-data" \
+# -F "customer_phone=966504677306" \
+# -F "name=أحمد محمد" \
+# -F "invoice_number=INV-2023-456" \
+# -F "amount=750" \
+# -F "currency=SAR" \
+# -F "file=@/home/mr-mohamed/Downloads/pdf/aktshf-mtah-altalm.pdf"
+
+curl -X POST http://89.250.65.247:8888/send-invoice \
+  -H "Content-Type: multipart/form-data" \
+  -F "customer_phone=966504677306" \
+  -F "name=أحمد محمد" \
+  -F "invoice_number=INV-2023-456" \
+  -F "amount=750" \
+  -F "currency=SAR" \
+  -F "file=@D:/invoices/invoice.pdf"

@@ -174,7 +174,7 @@ def send_document(media_id, customer_phone, name, invoice_number, amount, curren
     }
     
     response = requests.post(url, headers=headers, json=data)
-    log_customer_interaction(customer_phone, "outbound", f"sending {media_id} as invoice pdf")
+    log_customer_interaction(customer_phone, "outbound", f"sending {media_id} for invoice {invoice_number} pdf")
 
     return response.json()
 
