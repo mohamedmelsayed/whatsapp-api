@@ -261,16 +261,16 @@ if __name__ == '__main__':
     app.run(debug=True, port=8888)
 
 
-# curl -X POST http://89.250.65.247:8888/send-invoice \
+# curl -X POST SERVER_URL/send-invoice \
 # -H "Content-Type: multipart/form-data" \
-# -F "customer_phone=96898157645" \
+# -F "customer_phone=966504677306" \
 # -F "name=أحمد محمد" \
 # -F "invoice_number=INV-2023-456" \
 # -F "amount=750" \
 # -F "currency=SAR" \
 # -F "file=@/home/mr-mohamed/Downloads/pdf/aktshf-mtah-altalm.pdf"
 
-#     curl -X POST http://89.250.65.247:8888/send-invoice \
+#     curl -X POST SERVER_URL/send-invoice \
 # -H "Content-Type: application/json" \
 # -d '{
 #      "customer_phone": "96898157645",

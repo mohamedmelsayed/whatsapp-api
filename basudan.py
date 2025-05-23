@@ -1,6 +1,6 @@
 import requests
 
-def send_invoice_file_template(to, template_name, language, parameters, api_url="http://89.250.65.247:8888/send_template_message"):
+def send_invoice_file_template(to, template_name, language, parameters, api_url="SERVER_URL/send_template_message"):
     """
     Send a WhatsApp template message for invoice file using the specified API endpoint.
     Args:
@@ -32,7 +32,7 @@ def send_invoice_with_file(
         amount,
         currency,
         file_path,
-        api_url="http://89.250.65.247:8888/send-invoice"
+        api_url="SERVER_URL/send-invoice"
     ):
         """
         Send an invoice with a PDF file using multipart/form-data.

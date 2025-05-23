@@ -26,7 +26,7 @@ curl -X POST http://localhost:5000/create_template \
 }'
 
 
-curl -X POST http://89.250.65.247:8888/send_template_message \
+curl -X POST SERVER_URL/send_template_message \
 -H "Content-Type: application/json" \
 -d '{
   "to": "966504677306",
@@ -40,7 +40,7 @@ curl -X POST http://89.250.65.247:8888/send_template_message \
   ]
 }'
 
-curl -X POST http://89.250.65.247:8888/send_template_message \
+curl -X POST SERVER_URL/send_template_message \
 -H "Content-Type: application/json" \
 -d '{
   "to": "966504677306",
@@ -54,7 +54,7 @@ curl -X POST http://89.250.65.247:8888/send_template_message \
   ]
 }'
 
-curl -X POST http://89.250.65.247:8888/send-invoice \
+curl -X POST SERVER_URL/send-invoice \
 # -H "Content-Type: multipart/form-data" \
 # -F "customer_phone=966504677306" \
 # -F "name=أحمد محمد" \
@@ -63,7 +63,7 @@ curl -X POST http://89.250.65.247:8888/send-invoice \
 # -F "currency=SAR" \
 # -F "file=@/home/mr-mohamed/Downloads/pdf/aktshf-mtah-altalm.pdf"
 
-curl -X POST http://89.250.65.247:8888/send-invoice \
+curl -X POST SERVER_URL/send-invoice \
   -H "Content-Type: multipart/form-data" \
   -F "customer_phone=966504677306" \
   -F "name=أحمد محمد" \
